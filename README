@@ -1,0 +1,85 @@
+==========================
+
+This is very simple Asterisk resource module for persistent pushing every Asterisk AMI 
+event into an arbitrary client via Zero MQ (tm) library interface.
+
+
+For instance, one might find it useful to couple given module with Ratchet PHP WS 
+library to provide Asterisk administrator with useful information about of the PBX
+- that will be realised by pushing monitoring events via web interface web sockets 
+technology.
+
+==========================
+
+
+==========================
+
+Legend
+
+==========================
+
+Keeping persistent connection with Asterisk Manager Interface might be not desirable 
+in all possible situations, especially in natted envionment where web GUI physically located
+on a different machine from that of the PBX server. 
+
+
+==========================
+
+Installation Guide
+
+==========================
+
+1. Asterisk source tree must be deployed in some accessable directory.
+2. Invoke included install.sh file from a system user with write  permissions to 
+   /etc/asterisk and asterisk source tree path.
+
+$ sh ./install.sh
+
+
+libzmq:
+
+At some point of the installation process you will be prompted whether you want 
+to install libzmq library. Beware, this choice might be on your discretion, 
+however installing library available through your operating system's distribution 
+repository might lead to undesirable consequences - commonly repository offers 
+outdated versions of the libraries, the softlinks created will required effort to
+remove. Better option is to agree with the program installer and proceed with 
+installation from source code. Please take into account that development-tools
+and libtool are required for script to build libzmq library from source code. 
+Git is required to download its source tree. In either case libzmq version 3 
+is the minimum requiredment for the presented module to work properly.
+
+
+==========================
+
+Configuration
+
+==========================
+
+Only one configuration parameter thus far available in configuration file 
+that should be installed by the installer script - that is the destination's 
+unified resource location also known as uri location of the listening server.
+
+[general]
+uri = tcp://127.0.0.1:5555
+
+
+==========================
+
+Known limitations
+
+==========================
+
+The underlying concept implying one way communication - events are being pushed 
+with no way to issue commands to Asterisk - to do that you might need to 
+initiate Asterisk Manager connection on your own.
+
+
+==========================
+
+Contact
+
+==========================
+
+Please contact me at kartemiev@gmail.com
+
